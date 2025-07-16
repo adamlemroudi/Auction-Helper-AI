@@ -11,13 +11,6 @@ CREATE TABLE usuaris (
     data_registre TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
---------------- prova usuaris:
-INSERT INTO usuaris (nom_complet, correu, contrasenya)
-VALUES 
-('Adam Lemorudi', 'alemroudi@intitutcastelldestela.cat', 'alemroudi'),
-('Sònia Busquets', 'sbuque2@intitutcastelldestela.cat', 'sbusque2');
-SELECT * FROM usuaris;
-
 
 CREATE TABLE sessions_chat (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -37,14 +30,6 @@ CREATE TABLE missatges_chat (
     FOREIGN KEY (id_sessio) REFERENCES sessions_chat(id)
 );
 
-
-
------------------------------- prova missatges_chat:
-INSERT INTO missatges_chat (id_sessio, origen, contingut)
-VALUES 
-(1, 'usuari', 'Hola! Sestà subhastant a Ebay una consola, majudes a gunyar la subhasta? '),
-(1, 'assistent', 'Hola, perfecte! Donam tots els detalls de la subhasta, et faré un analisi i et donaré consells basats en la teoria de jocs. ');
-SELECT * FROM missatges_chat WHERE id_sessio = 1;
 
 
 
