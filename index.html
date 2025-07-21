@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Xat amb l'assistent</title>
+  </head>
+  <body>
+    <h2>Xat</h2>
+
+    <input id="text" placeholder="Escriu el missatge">
+    <button onclick="enviar()">Enviar</button>
+
+    <script>
+      function enviar() {
+        const text = document.getElementById('text').value;
+
+        fetch('http://localhost:3004/missatge', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id_sessio: 1,
+            origen: 'usuari',
+            contingut: text,
+            tipus: 'normal'
+          })
+        })
+        .then(res => res.text())
+        .then(data => alert(data));
+
+        document.getElementById('text').value = '';
+      }
+    </script>
+  </body>
+</html>
+
