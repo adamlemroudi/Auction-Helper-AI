@@ -29,3 +29,4 @@ CREATE TABLE missatges_chat (
     moment TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_sessio) REFERENCES sessions_chat(id)
 );
+SELECT 
