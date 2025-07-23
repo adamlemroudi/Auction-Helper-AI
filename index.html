@@ -2,17 +2,18 @@
 <html>
   <head>
     <title>Xat</title>
-    <!-- 1. Carrega la llibreria oficial de Supabase -->
-    <script src="https://hnjgigrgviqbtltomvrr.supabase.co"></script>
+    <script src="https://hnjgigrgviqbtltomvrr.supabase.co" defer></script>
+    <script src="./main.js" defer></script>
   </head>
   <body>
     <h2>Xat</h2>
 
+    <div id="chat" style="border:1px solid #ccc; height:300px; overflow:auto; padding:8px;"></div>
+
     <input id="text" placeholder="Escriu el missatge">
     <button onclick="enviar()">Enviar</button>
-
-    <script src="./main.js"></script>
   </body>
 </html>
+
 
 
