@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Xat</title>
-    <script src="https://hnjgigrgviqbtltomvrr.supabase.co" defer></script>
-    <script src="./main.js" defer></script>
   </head>
   <body>
     <h2>Xat</h2>
 
-    <div id="chat" style="border:1px solid #ccc; height:300px; overflow:auto; padding:8px;"></div>
+    <div id="chat"
+         style="border:1px solid #ccc; height:300px;
+                overflow:auto; padding:8px;">
+    </div>
 
     <input id="text" placeholder="Escriu el missatge">
-    <button onclick="enviar()">Enviar</button>
+    
+    <button id="sendBtn">Enviar</button>
+
+    
+    <script type="module" src="./main.js"></script>
   </body>
 </html>
 
