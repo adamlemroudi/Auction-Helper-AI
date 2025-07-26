@@ -1,0 +1,140 @@
+body {
+  margin: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8fafc; 
+  display: flex;
+  gap: 20px;
+  height: calc(100vh - 40px);
+}
+
+.sidebar {
+  width: 220px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 8px #ccc;
+  padding: 1.5em 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar img {
+  width: 140px;
+  height: auto;
+  margin-bottom: 0.5em;
+}
+
+.sidebar button {
+  width: 100%;
+  margin: 6px 0;
+  padding: 0.6em;
+  border: none;
+  border-radius: 8px;
+  background: #3b82f6;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sidebar button:hover {
+  background-color: #2563eb;
+}
+
+.main {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 8px #ccc;
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  padding: 1.2em;
+  background: #e0f2fe;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.8em;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+#finalitzarBtn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#chat {
+  flex: 1;
+  padding: 1.2em;
+  overflow-y: auto;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+#chat p {
+  background: #e5e7eb;
+  padding: 0.7em 1em;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+#chat .usuari {
+  background-color: #dbeafe;
+  align-self: flex-end;
+}
+
+#chat .assistent {
+  background-color: #fef3c7;
+  align-self: flex-start;
+}
+
+#inputZone {
+  display: flex;
+  padding: 1em;
+  gap: 0.5em;
+  background: #f1f5f9;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+#text {
+  flex: 1;
+  padding: 0.7em;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s;
+}
+
+#text:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+#sendBtn {
+  padding: 0.7em 1.2em;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+#sendBtn:hover {
+  transform: scale(1.05);
+}
