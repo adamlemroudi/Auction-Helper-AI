@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Xat</title>
-  </head>
-  <body>
-    <h2>Xat</h2>
+<head>
+  <meta charset="utf-8">
+  <title>Assistent</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estil.css">
+</head>
+<body>
 
-    <div id="chat"
-         style="border:1px solid #ccc; height:300px;
-                overflow:auto; padding:8px;">
+  <div class="sidebar">
+    <img src="image.png" alt="Logo">
+    <button id="nouCasBtn">+ Nou cas</button>
+    <button id="mostrarHistorialBtn">📂 Historial</button>
+    <div id="sessionsList"></div>
+  </div>
+
+  <div class="main">
+    <div id="header">
+      <span>Assistent Expert en Subhastes</span>
+      <button id="finalitzarBtn">Finalitzar</button>
     </div>
+    <div id="chat"></div>
+    <div id="inputZone">
+      <input id="text" placeholder="Escriu el teu cas..." />
+      <button id="sendBtn">Enviar</button>
+    </div>
+  </div>
 
-    <input id="text" placeholder="Escriu el missatge">
-    
-    <button id="sendBtn">Enviar</button>
-
-    
-    <script type="module" src="./main.js"></script>
-  </body>
+  <script type="module" src="./main.js"></script>
+</body>
 </html>
+
 
 
 
