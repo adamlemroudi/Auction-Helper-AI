@@ -1,30 +1,107 @@
-// Importem Supabase 
+
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-//  Inicialització del meu compte
+
 const supabase = createClient(
   'https://hnjgigrgviqbtltomvrr.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhuamdpZ3JndmlxYnRsdG9tdnJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyODI0NDAsImV4cCI6MjA2ODg1ODQ0MH0.PgDyV9KcrTd7GbXbZh5XkZX2eonytBsHCTt42KgiOM4'
 );
-const TABLE = 'missatges_chat';
+const TABLE_MISSATGES = 'missatges_chat';
 
-// DOM
-const chatDiv   = document.getElementById('chat');
-const textInput = document.getElementById('text');
-const sendBtn   = document.getElementById('sendBtn');
 
-//recarrega i mostra els missatges
+let sessioActivaId = null;
+
+window.addEventListener('DOMContentLoaded', () => {
+
+  document.getElementById('nouCasBtn').addEventListener('click', async () => {
+    await crearNovaSessio();
+    await mostraSessions();
+    
+    refrescaXat();
+  });
+
+  
+  document.getElementById('sendBtn').addEventListener('click', enviar);
+
+  
+  mostraSessions();
+});
+
+async function crearNovaSessio() {
+  const id_usuari = 2; 
+  const { data, error } = await supabase
+    .from('sessions_chat')
+    .insert({ id_usuari })
+    .select(); 
+
+  if (error) {
+    alert("No s’ha pogut crear una nova sessió");
+    console.error(error);
+    return;
+  }
+
+  sessioActivaId = data && data[0] ? data[0].id : null;
+}
+
+async function mostraSessions() {
+  const { data, error } = await supabase
+    .from('sessions_chat')
+    .select('*')
+    .order('id', { ascending: true });
+
+  if (error) {
+    alert('Error carregant sessions');
+    console.error(error);
+    return;
+  }
+
+  const sessionsList = document.getElementById('sessionsList');
+  if (!sessionsList) return;
+
+  sessionsList.innerHTML = data
+    .map(sessio => `
+      <div class="sessio-link" 
+           data-id="${sessio.id}"
+           style="cursor:pointer; ${sessioActivaId === sessio.id ? 'font-weight:bold;text-decoration:underline;' : ''}">
+        Sessió #${sessio.id} (usuari: ${sessio.id_usuari})
+      </div>
+    `)
+    .join('');
+
+    if (!sessioActivaId && data.length > 0) {
+    sessioActivaId = data[data.length - 1].id;
+    refrescaXat();
+  }
+
+  document.querySelectorAll('.sessio-link').forEach(div => {
+    div.addEventListener('click', () => {
+      sessioActivaId = Number(div.dataset.id);
+      refrescaXat();
+      mostraSessions();
+    });
+  });
+}
+
+
 async function refrescaXat() {
+  const chatDiv = document.getElementById('chat');
+  if (!sessioActivaId) {
+    chatDiv.innerHTML = '';
+    return;
+  }
   try {
     const { data, error } = await supabase
-      .from(TABLE)
+      .from(TABLE_MISSATGES)
       .select('origen, contingut')
+      .eq('id_sessio', sessioActivaId)
       .order('id', { ascending: true });
     if (error) throw error;
 
-    chatDiv.innerHTML = data
-      .map(m => `<p>${m.origen==='usuari'?'Usuari':'Assistent'}: ${m.contingut}</p>`)
-      .join('');
+    chatDiv.innerHTML = data.length
+      ? data
+        .map(m => `<p>${m.origen === 'usuari' ? 'Usuari' : 'Assistent'}: ${m.contingut}</p>`)
+        .join('')
+      : `<p style="color:#888;">Encara no hi ha missatges en aquest xat.</p>`;
     chatDiv.scrollTop = chatDiv.scrollHeight;
   } catch (err) {
     console.error('Error refrescant xat:', err);
@@ -32,15 +109,16 @@ async function refrescaXat() {
   }
 }
 
-// envia un nou missatge
+
 async function enviar() {
+  const textInput = document.getElementById('text');
   const text = textInput.value.trim();
-  if (!text) return;
+  if (!text || !sessioActivaId) return;  // No pots enviar si no hi ha sessió activa!
 
   try {
     const { error } = await supabase
-      .from(TABLE)
-      .insert({ id_sessio: 1, origen: 'usuari', contingut: text, tipus: 'normal' });
+      .from(TABLE_MISSATGES)
+      .insert({ id_sessio: sessioActivaId, origen: 'usuari', contingut: text, tipus: 'normal' });
     if (error) throw error;
 
     textInput.value = '';
@@ -51,8 +129,3 @@ async function enviar() {
   }
 }
 
-//carreguem missatges
-window.addEventListener('DOMContentLoaded', () => {
-  refrescaXat();
-  sendBtn.addEventListener('click', enviar);
-});
