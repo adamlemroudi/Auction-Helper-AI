@@ -62,15 +62,7 @@ body {
 }
 
 
-#finalitzarBtn {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.5em 1em;
-  cursor: pointer;
-  font-weight: bold;
-}
+
 
 #chat {
   flex: 1;
