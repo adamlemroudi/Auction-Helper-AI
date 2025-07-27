@@ -62,8 +62,6 @@ body {
 }
 
 
-
-
 #chat {
   flex: 1;
   padding: 1.2em;
@@ -129,4 +127,22 @@ body {
 
 #sendBtn:hover {
   transform: scale(1.05);
+}
+
+#sessionsList div {
+  width: 100%;
+  background-color: transparent;
+  color: #1f2937;
+  padding: 0.6em 0.8em;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  text-align: left;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+#sessionsList div:hover {
+  background-color: #e5e7eb;
 }
