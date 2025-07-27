@@ -146,3 +146,11 @@ body {
 #sessionsList div:hover {
   background-color: #e5e7eb;
 }
+
+#sessionsList {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 70vh; /* o el valor que vulguis */
+  width: 100%;
+}
