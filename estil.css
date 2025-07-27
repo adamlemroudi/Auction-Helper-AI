@@ -1,6 +1,6 @@
 body {
   margin: 20px;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: #f8fafc; 
   display: flex;
   gap: 20px;
@@ -151,6 +151,23 @@ body {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 70vh; /* o el valor que vulguis */
+  max-height: 70vh; 
   width: 100%;
+}
+
+#header {
+  background-color: #e0f2fe;
+  padding: 0.8em 1.2em;
+  font-family: 'Inter', sans-serif;
+  border-bottom: 1px solid #cbd5e1;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#header h1 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #1e3a8a;
+  font-weight: 600;
 }
