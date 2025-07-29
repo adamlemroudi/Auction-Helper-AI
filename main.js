@@ -97,12 +97,15 @@ async function refrescaXat() {
       .order('id', { ascending: true });
     if (error) throw error;
 
-    chatDiv.innerHTML = data.length
-      ? data
-        .map(m => `<p class="${m.origen}">${m.contingut}</p>`)
-        .join(''):
-      `<p style="color:#888;">Encara no hi ha missatges en aquest xat.</p>`;
-    chatDiv.scrollTop = chatDiv.scrollHeight;
+  const welcome = '<p class="assistent">Hola! Sóc el teu assistent d’IA especialitzat en subhastes i basat en la teoria de jocs. Et guiaré perquè triïs l’estratègia guanyadora. Explica’m el teu cas! </p>';
+
+  chatDiv.innerHTML = welcome +
+    (data.length
+      ? data.map(m => `<p class="${m.origen}">${m.contingut}</p>`).join('')
+      : '');
+
+  chatDiv.scrollTop = chatDiv.scrollHeight;
+
   } catch (err) {
     console.error('Error refrescant xat:', err);
     alert('No s’han pogut carregar els missatges.');
