@@ -99,7 +99,7 @@ async function refrescaXat() {
 
     chatDiv.innerHTML = data.length
       ? data
-        .map(m => `<p>${m.origen === 'usuari' ? 'Usuari' : 'Assistent'}: ${m.contingut}</p>`)
+        .map(m => `<p>${m.origen === 'usuari' ? '' : 'Assistent'}: ${m.contingut}</p>`)
         .join('')
       : `<p style="color:#888;">Encara no hi ha missatges en aquest xat.</p>`;
     chatDiv.scrollTop = chatDiv.scrollHeight;
