@@ -59,12 +59,12 @@ async function mostraSessions() {
   if (!sessionsList) return;
 
   sessionsList.innerHTML = data
-    .map(sessio => `
-      <div class="sessio-link" 
-           data-id="${sessio.id}"
-           style="cursor:pointer; ${sessioActivaId === sessio.id ? 'font-weight:bold;text-decoration:underline;' : ''}">
-        Sessió #${sessio.id} (usuari: ${sessio.id_usuari})
-      </div>
+ .map((sessio, index) => `
+    <div class="sessio-link" 
+       data-id="${sessio.id}"
+       style="cursor:pointer; ${sessioActivaId === sessio.id ? 'font-weight:bold;text-decoration:underline;' : ''}">
+      Sessió ${index + 1}
+    </div>
     `)
     .join('');
 
@@ -99,9 +99,9 @@ async function refrescaXat() {
 
     chatDiv.innerHTML = data.length
       ? data
-        .map(m => `<p>${m.origen === 'usuari' ? '' : 'Assistent'}: ${m.contingut}</p>`)
-        .join('')
-      : `<p style="color:#888;">Encara no hi ha missatges en aquest xat.</p>`;
+        .map(m => `<p class="${m.origen}">${m.contingut}</p>`)
+        .join(''):
+      `<p style="color:#888;">Encara no hi ha missatges en aquest xat.</p>`;
     chatDiv.scrollTop = chatDiv.scrollHeight;
   } catch (err) {
     console.error('Error refrescant xat:', err);
@@ -113,7 +113,7 @@ async function refrescaXat() {
 async function enviar() {
   const textInput = document.getElementById('text');
   const text = textInput.value.trim();
-  if (!text || !sessioActivaId) return;  // No pots enviar si no hi ha sessió activa!
+  if (!text || !sessioActivaId) return; 
 
   try {
     const { error } = await supabase
@@ -128,4 +128,5 @@ async function enviar() {
     alert('No s’ha pogut enviar el missatge.');
   }
 }
+
 
