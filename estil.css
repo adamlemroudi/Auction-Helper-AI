@@ -188,3 +188,13 @@ body {
   pointer-events: none;
 }
 
+#splash img {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  border: 3px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 8px;
+  background: #ffffff;
+}
+
