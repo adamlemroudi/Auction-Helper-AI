@@ -156,7 +156,7 @@ body {
 }
 
 #header {
-  background-color: #e0f2fe;
+  background-color: #f1f5f9;
   padding: 0.8em 1.2em;
   font-family: 'Inter', sans-serif;
   border-bottom: 1px solid #cbd5e1;
@@ -171,3 +171,20 @@ body {
   color: #1e3a8a;
   font-weight: 600;
 }
+
+#splash {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 0.6s ease;
+}
+
+#splash.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
