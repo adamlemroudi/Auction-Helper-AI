@@ -9,11 +9,11 @@ app.get('/ping', (req, res) => {
 });
 
 if (!process.env.OPENAI_API_KEY) {
-  console.warn('⚠️  No has posat OPENAI_API_KEY al .env');
+  console.warn('No has posat OPENAI_API_KEY al .env');
 }
 
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`✅ Servidor escoltant al port ${PORT}`);
+  console.log(`Servidor escoltant al port ${PORT}`);
 });
 
