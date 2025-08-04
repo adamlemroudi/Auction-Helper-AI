@@ -1,7 +1,15 @@
 {
   "name": "auction-helper-ai",
   "version": "1.0.0",
-  "type": "module",       
+  "description": "Assistent de subhastes amb IA (projecte de batxillerat)",
+  "type": "module",
+  "main": "server/server.js",
+
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "echo \"(encara no hi ha tests)\" && exit 0"
+  },
+
   "dependencies": {
     "@supabase/supabase-js": "^2.53.0",
     "dotenv": "^17.2.1",
