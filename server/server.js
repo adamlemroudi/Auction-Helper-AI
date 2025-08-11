@@ -4,6 +4,7 @@ import 'dotenv/config';
 import express from 'express';
 import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
+import cors from 'cors';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -11,6 +12,9 @@ const openai = new OpenAI({
 
 const app = express();
 app.use(express.json());
+app.use(cors({
+  origin: '*'
+}));
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
