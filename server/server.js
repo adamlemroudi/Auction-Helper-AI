@@ -1,3 +1,5 @@
+console.log("Servidor carregat des de server/server.js");
+
 import 'dotenv/config';
 import express from 'express';
 import { createClient } from '@supabase/supabase-js';
@@ -68,11 +70,21 @@ app.get('/ai-ping', async (req, res) => {
 
 app.post('/ask', async (req, res) => {
   try {
-    const { text } = req.body;
+    const { id_sessio, text, mode } = req.body;
 
     if (!text) {
       return res.status(400).json({ ok: false, error: 'Falta el text' });
     }
+
+    const { error: userError } = await supabase
+      .from('missatges_chat')
+      .insert({
+        id_sessio,
+        origen: 'usuari',
+        contingut: text,
+        tipus: mode === 'math' ? 'raonament' : 'normal'
+      });
+    console.log(userError);
 
     const resposta = await openai.responses.create({
       model: 'gpt-4o-mini',
@@ -80,6 +92,16 @@ app.post('/ask', async (req, res) => {
     });
 
     const reply = resposta.output_text;
+
+    const { error: aiError } = await supabase
+      .from('missatges_chat')
+      .insert({
+        id_sessio,
+        origen: 'assistent',
+        contingut: reply,
+        tipus: mode === 'math' ? 'raonament' : 'normal'
+      });
+    console.log(aiError);
 
     res.json({ ok: true, reply });
   } catch (e) {
