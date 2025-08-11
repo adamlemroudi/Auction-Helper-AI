@@ -54,7 +54,7 @@ app.get('/ai-ping', async (req, res) => {
   try {
     const resposta = await openai.responses.create({
       model: 'gpt-4o-mini',
-      input: 'Escriu la paraula "pong"'
+      input: 'Escriu la paraula "poong"'
     });
 
     res.json({
