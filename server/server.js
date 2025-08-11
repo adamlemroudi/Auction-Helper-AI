@@ -2,9 +2,9 @@ console.log("Servidor carregat des de server/server.js");
 
 import 'dotenv/config';
 import express from 'express';
+import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
-import cors from 'cors';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -13,7 +13,9 @@ const openai = new OpenAI({
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: '*'
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 const supabase = createClient(
@@ -75,7 +77,6 @@ app.get('/ai-ping', async (req, res) => {
 app.post('/ask', async (req, res) => {
   try {
     const { id_sessio, text, mode } = req.body;
-
     if (!text) {
       return res.status(400).json({ ok: false, error: 'Falta el text' });
     }
@@ -86,7 +87,7 @@ app.post('/ask', async (req, res) => {
         id_sessio,
         origen: 'usuari',
         contingut: text,
-        tipus: mode === 'math' ? 'raonament' : 'normal'
+        tipus: mode === 'math' ? 'math' : 'normal'
       });
     console.log(userError);
 
@@ -103,7 +104,7 @@ app.post('/ask', async (req, res) => {
         id_sessio,
         origen: 'assistent',
         contingut: reply,
-        tipus: mode === 'math' ? 'raonament' : 'normal'
+        tipus: mode === 'math' ? 'math' : 'normal'
       });
     console.log(aiError);
 
