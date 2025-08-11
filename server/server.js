@@ -1,6 +1,11 @@
 import 'dotenv/config';
 import express from 'express';
 import { createClient } from '@supabase/supabase-js';
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
 
 const app = express();
 app.use(express.json());
@@ -44,6 +49,22 @@ app.post('/message', async (req, res) => {
 if (!process.env.OPENAI_API_KEY) {
   console.warn('No has posat OPENAI_API_KEY al .env');
 }
+
+app.get('/ai-ping', async (req, res) => {
+  try {
+    const resposta = await openai.responses.create({
+      model: 'gpt-4o-mini',
+      input: 'Escriu la paraula "pong"'
+    });
+
+    res.json({
+      ok: true,
+      reply: resposta.output_text
+    });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: e.message });
+  }
+});
 
 const PORT = 3007;
 app.listen(PORT, () => {
