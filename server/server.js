@@ -66,6 +66,28 @@ app.get('/ai-ping', async (req, res) => {
   }
 });
 
+app.post('/ask', async (req, res) => {
+  try {
+    const { text } = req.body;
+
+    if (!text) {
+      return res.status(400).json({ ok: false, error: 'Falta el text' });
+    }
+
+    const resposta = await openai.responses.create({
+      model: 'gpt-4o-mini',
+      input: text
+    });
+
+    const reply = resposta.output_text;
+
+    res.json({ ok: true, reply });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
 const PORT = 3007;
 app.listen(PORT, () => {
   console.log(`Servidor escoltant al port ${PORT}`);
