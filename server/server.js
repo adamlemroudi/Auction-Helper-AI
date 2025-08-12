@@ -92,9 +92,21 @@ app.post('/ask', async (req, res) => {
     console.log(userError);
 
     const resposta = await openai.responses.create({
-      model: 'gpt-4o-mini',
-      input: text
-    });
+     model: 'gpt-4o-mini',
+     input: [
+    {
+      role: "system",
+      content: `Ets un assistent expert en subhastes i teoria de jocs amb un alt nivell de coneixement acadèmic i pràctic. 
+                Respon sempre en català amb un to clar, estructurat i fàcil d'entendre, però utilitzant conceptes rigorosos 
+                quan sigui necessari. Ofereix estratègies basades en la teoria de jocs i explica el raonament darrere de cada recomanació. 
+                Adapta les respostes al context i als detalls concrets del cas de l'usuari, indicant quins factors considerar i quines decisions poden maximitzar la seva utilitat esperada.`
+    },
+    {
+      role: "user",
+      content: text
+    }
+  ]
+});
 
     const reply = resposta.output_text;
 
