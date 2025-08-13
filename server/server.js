@@ -74,41 +74,80 @@ app.get('/ai-ping', async (req, res) => {
   }
 });
 
+async function getMemoryMessages(id_sessio, limit = 12) {
+  const { data, error } = await supabase
+    .from('missatges_chat')
+    .select('origen, contingut')
+    .eq('id_sessio', id_sessio)
+    .eq('memoria', true)
+    .order('id', { ascending: true })
+    .limit(limit);
+  if (error) return [];
+  return (data || []).map(m => ({
+    role: m.origen === 'usuari' ? 'user' : 'assistant',
+    content: m.contingut
+  }));
+}
+
+async function getRecentMessages(id_sessio, limit = 6) {
+  const { data, error } = await supabase
+    .from('missatges_chat')
+    .select('origen, contingut')
+    .eq('id_sessio', id_sessio)
+    .order('id', { ascending: false })
+    .limit(limit);
+  if (error) return [];
+  return (data || []).reverse().map(m => ({
+    role: m.origen === 'usuari' ? 'user' : 'assistant',
+    content: m.contingut
+  }));
+}
+
 app.post('/ask', async (req, res) => {
   try {
-    const { id_sessio, text, mode } = req.body;
+    const { id_sessio, text, mode, remember } = req.body;
     if (!text) {
       return res.status(400).json({ ok: false, error: 'Falta el text' });
     }
 
-    const { error: userError } = await supabase
+    const tipus = mode === 'raonament' ? 'raonament' : 'normal';
+
+    const { data: userInsert, error: userError } = await supabase
       .from('missatges_chat')
       .insert({
         id_sessio,
         origen: 'usuari',
         contingut: text,
-        tipus: mode === 'math' ? 'math' : 'normal'
-      });
-    console.log(userError);
+        tipus
+      })
+      .select('id')
+      .single();
+
+    if (userError) throw userError;
+    const userMsgId = userInsert?.id;
+
+    const memory = await getMemoryMessages(id_sessio);
+    const recent = await getRecentMessages(id_sessio);
+
+    const messages = [
+      {
+        role: "system",
+        content: `Ets un assistent expert en subhastes i teoria de jocs.
+Respon sempre en català amb un to clar, estructurat i fàcil d'entendre, però sense perdre el rigor.
+Explica sempre el raonament darrere de les recomanacions i adapta't al context de l'usuari.
+Si hi ha informació guardada a la memòria, utilitza-la per mantenir coherència i continuïtat.`
+      },
+      ...memory,
+      ...recent,
+      { role: "user", content: text }
+    ];
 
     const resposta = await openai.responses.create({
-     model: 'gpt-4o-mini',
-     input: [
-    {
-      role: "system",
-      content: `Ets un assistent expert en subhastes i teoria de jocs amb un alt nivell de coneixement acadèmic i pràctic. 
-                Respon sempre en català amb un to clar, estructurat i fàcil d'entendre, però utilitzant conceptes rigorosos 
-                quan sigui necessari. Ofereix estratègies basades en la teoria de jocs i explica el raonament darrere de cada recomanació. 
-                Adapta les respostes al context i als detalls concrets del cas de l'usuari, indicant quins factors considerar i quines decisions poden maximitzar la seva utilitat esperada.`
-    },
-    {
-      role: "user",
-      content: text
-    }
-  ]
-});
+      model: 'gpt-4o-mini',
+      input: messages
+    });
 
-    const reply = resposta.output_text;
+    const reply = resposta.output_text ?? '(sense resposta)';
 
     const { error: aiError } = await supabase
       .from('missatges_chat')
@@ -116,9 +155,17 @@ app.post('/ask', async (req, res) => {
         id_sessio,
         origen: 'assistent',
         contingut: reply,
-        tipus: mode === 'math' ? 'math' : 'normal'
+        tipus
       });
-    console.log(aiError);
+
+    if (aiError) throw aiError;
+
+    if (remember === true && userMsgId) {
+      await supabase
+        .from('missatges_chat')
+        .update({ memoria: true })
+        .eq('id', userMsgId);
+    }
 
     res.json({ ok: true, reply });
   } catch (e) {
