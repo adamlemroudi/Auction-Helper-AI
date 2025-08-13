@@ -29,4 +29,9 @@ CREATE TABLE missatges_chat (
     moment TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_sessio) REFERENCES sessions_chat(id)
 );
-SELECT 
+
+ALTER TABLE missatges_chat
+ADD COLUMN memoria BOOLEAN DEFAULT false;
+
+CREATE INDEX idx_missatges_chat_memoria
+ON missatges_chat (id_sessio, memoria);
