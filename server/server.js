@@ -60,14 +60,16 @@ if (!process.env.OPENAI_API_KEY) {
 
 app.get('/ai-ping', async (req, res) => {
   try {
-    const resposta = await openai.responses.create({
-      model: 'gpt-4o-mini',
-      input: 'Escriu la paraula "poong"'
+    const resposta = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [{ role: "user", content: 'Escriu la paraula "poong"' }],
+      temperature: 0.3,
+      max_tokens: 300
     });
 
     res.json({
       ok: true,
-      reply: resposta.output_text
+      reply: resposta.choices[0].message.content
     });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
@@ -132,22 +134,30 @@ app.post('/ask', async (req, res) => {
     const messages = [
       {
         role: "system",
-        content: `Ets un assistent expert en subhastes i teoria de jocs.
-Respon sempre en català amb un to clar, estructurat i fàcil d'entendre, però sense perdre el rigor.
-Explica sempre el raonament darrere de les recomanacions i adapta't al context de l'usuari.
-Si hi ha informació guardada a la memòria, utilitza-la per mantenir coherència i continuïtat.`
+        content: `
+Ets un assistent expert en subhastes i en teoria de jocs.
+Has d’ajudar compradors a guanyar subhastes amb estratègies matemàtiques.
+Les respostes han de ser:
+- Clares, simples i directes.
+- Sempre amb la raó matemàtica darrere del consell, pas a pas.
+- Si és útil, utilitza fórmules senzilles o exemples numèrics.
+- Si falta informació, demana-la abans de respondre.
+Primer explica la lògica matemàtica, després dona el consell final.
+        `
       },
       ...memory,
       ...recent,
       { role: "user", content: text }
     ];
 
-    const resposta = await openai.responses.create({
-      model: 'gpt-4o-mini',
-      input: messages
+    const resposta = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: messages,
+      temperature: 0.3,
+      max_tokens: 300
     });
 
-    const reply = resposta.output_text ?? '(sense resposta)';
+    const reply = resposta.choices[0].message.content ?? '(sense resposta)';
 
     const { error: aiError } = await supabase
       .from('missatges_chat')
