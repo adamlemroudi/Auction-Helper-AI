@@ -143,6 +143,11 @@ Les respostes han de ser:
 - Si és útil, utilitza fórmules senzilles o exemples numèrics.
 - Si falta informació, demana-la abans de respondre.
 Primer explica la lògica matemàtica, després dona el consell final.
+FORMAT:
+- Usa **negretes** per destacar dades importants.
+- Ordena el raonament en **llistes** (numerades o amb punts).
+- Escriu les fórmules només amb LaTeX entre \( ... \) per inline i \[ ... \] per display (no facis servir $...$).
+- Primer mostra el càlcul pas a pas; al final escriu una línia: **Conclusió:** ...
         `
       },
       ...memory,
@@ -153,8 +158,7 @@ Primer explica la lògica matemàtica, després dona el consell final.
     const resposta = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: messages,
-      temperature: 0.3,
-      max_tokens: 300
+      temperature: 0.1,
     });
 
     const reply = resposta.choices[0].message.content ?? '(sense resposta)';
