@@ -267,3 +267,21 @@ body {
   border-radius: 8px;
   margin-top: 6px;
 }
+
+#chat .usuari p,
+#chat .assistent p,
+#chat .usuari div,
+#chat .assistent div {
+  background: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#chat .usuari code,
+#chat .assistent code,
+#chat .usuari pre,
+#chat .assistent pre {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
