@@ -61,7 +61,6 @@ body {
   align-items: center;
 }
 
-
 #chat {
   flex: 1;
   padding: 1.2em;
@@ -143,6 +142,7 @@ body {
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
+
 #sessionsList div:hover {
   background-color: #e5e7eb;
 }
@@ -198,3 +198,72 @@ body {
   background: #ffffff;
 }
 
+/* ─── Suport per negretes, llistes i fórmules ────────────────────── */
+
+#chat .assistent,
+#chat .usuari {
+  padding: 0.7em 1em;
+  border-radius: 10px;
+  max-width: 70%;
+  line-height: 1.5;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+#chat .assistent h1, 
+#chat .assistent h2, 
+#chat .assistent h3,
+#chat .usuari h1, 
+#chat .usuari h2, 
+#chat .usuari h3 {
+  margin: 0.4em 0 0.2em;
+  line-height: 1.2;
+}
+
+#chat .assistent ul, 
+#chat .assistent ol,
+#chat .usuari ul, 
+#chat .usuari ol {
+  margin: 0.4em 0 0.4em 1.2em;
+  padding: 0;
+}
+
+#chat .assistent li,
+#chat .usuari li {
+  margin: 0.15em 0;
+}
+
+#chat .assistent code,
+#chat .usuari code {
+  background: #f0f2f5;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+#chat .assistent pre code,
+#chat .usuari pre code {
+  display: block;
+  padding: 12px;
+  border-radius: 12px;
+  overflow: auto;
+}
+
+#chat .assistent .katex-display,
+#chat .usuari .katex-display {
+  margin: 8px 0;
+}
+
+#chat .assistent .katex,
+#chat .usuari .katex {
+  font-size: 1.05em;
+}
+
+#chat .assistent .conclusion,
+#chat .usuari .conclusion {
+  padding: 8px 10px;
+  border-left: 4px solid #6b8afd;
+  background: #eef2ff;
+  border-radius: 8px;
+  margin-top: 6px;
+}
