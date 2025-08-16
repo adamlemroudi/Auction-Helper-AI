@@ -19,8 +19,16 @@ window.addEventListener('DOMContentLoaded', () => {
   mostraSessions();
 });
 
+function normalizeLatexDelimiters(text) {
+  if (!text) return '';
+  return text
+    .replace(/\\\[((?:[\s\S]*?))\\\]/g, '$$$1$$')
+    .replace(/\\\(((?:[\s\S]*?))\\\)/g, '$$1$');
+}
+
 function mdToSafeHtml(rawText) {
-  const html = marked.parse(rawText || '');
+  const pre = normalizeLatexDelimiters(rawText || '');
+  const html = marked.parse(pre);
   return DOMPurify.sanitize(html);
 }
 
@@ -114,8 +122,9 @@ async function refrescaXat() {
 
     if (error) throw error;
 
-    const welcome = '<p class="assistent">Hola! Sóc el teu assistent expert en subhastes. Explica’m el teu cas i t’ajudaré!</p>';
-    chatDiv.innerHTML = welcome;
+    chatDiv.innerHTML = '';
+
+    afegeixMissatge('assistent', 'Hola! Sóc el teu assistent expert en subhastes. Explica’m el teu cas i t’ajudaré!');
 
     if (data.length) {
       data.forEach(m => afegeixMissatge(m.origen, m.contingut));
