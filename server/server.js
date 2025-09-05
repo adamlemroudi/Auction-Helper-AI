@@ -5,6 +5,8 @@ import express from 'express';
 import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
+import fs from 'fs';
+
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -26,6 +28,15 @@ const supabase = createClient(
 if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
   console.warn('Falta SUPABASE_URL o SUPABASE_ANON_KEY al .env');
 }
+
+let tdrContext = '';
+try {
+  tdrContext = fs.readFileSync('./apartat5.txt', 'utf-8');
+  console.log("Contingut carregat de l'apartat 5:", tdrContext.substring(0, 200));
+} catch (err) {
+  console.error("Error carregant apartat5.txt:", err.message);
+}
+
 
 app.get('/db-ping', async (req, res) => {
   const { error } = await supabase.from('missatges_chat').select('id').limit(1);
@@ -149,6 +160,11 @@ FORMAT:
 - Escriu les fórmules només amb LaTeX entre \( ... \) per inline i \[ ... \] per display (no facis servir $...$).
 - Primer mostra el càlcul pas a pas; al final escriu una línia: **Conclusió:** ...
         `
+      },
+
+      {
+    role: "system",
+    content: `Aquest és el context del treball de recerca de l'usuari (apartat 5, Teoria de Subhastes). Has d'utilitzar-lo sempre com a base per a les teves respostes:\n\n${tdrContext}`
       },
       ...memory,
       ...recent,
