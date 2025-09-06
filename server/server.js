@@ -159,6 +159,18 @@ FORMAT:
 - Ordena el raonament en **llistes** (numerades o amb punts).
 - Escriu les fórmules només amb LaTeX entre \( ... \) per inline i \[ ... \] per display (no facis servir $...$).
 - Primer mostra el càlcul pas a pas; al final escriu una línia: **Conclusió:** ...
+- Quan expliquis els símbols, fes-ho així:
+  Exemple: 
+  Fórmula: \( u_i = v_i - b_i \)
+  On:
+  - \( u_i \) = utilitat del jugador i
+  - \( v_i \) = valor privat del jugador i
+  - \( b_i \) = oferta del jugador i
+- **No repeteixis els números sols.** Escriu sempre la variable completa amb subíndex (p. ex. \( b_1 \), no “1”).
+
+A més a més, tens accés a les següents notes de referència que provenen del meu treball de recerca (apartat 5 de teoria de subhastes). Utilitza-les sempre que sigui rellevant per donar la resposta:
+
+${tdrContext}
         `
       },
 
