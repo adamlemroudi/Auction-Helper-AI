@@ -32,7 +32,7 @@ if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
 let tdrContext = '';
 try {
   tdrContext = fs.readFileSync('./apartat5.txt', 'utf-8');
-  console.log("Contingut carregat de l'apartat 5:", tdrContext.substring(0, 200));
+  
 } catch (err) {
   console.error("Error carregant apartat5.txt:", err.message);
 }
@@ -65,27 +65,7 @@ app.post('/message', async (req, res) => {
   }
 });
 
-if (!process.env.OPENAI_API_KEY) {
-  console.warn('No has posat OPENAI_API_KEY al .env');
-}
 
-app.get('/ai-ping', async (req, res) => {
-  try {
-    const resposta = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [{ role: "user", content: 'Escriu la paraula "poong"' }],
-      temperature: 0.3,
-      max_tokens: 300
-    });
-
-    res.json({
-      ok: true,
-      reply: resposta.choices[0].message.content
-    });
-  } catch (e) {
-    res.status(500).json({ ok: false, error: e.message });
-  }
-});
 
 async function getMemoryMessages(id_sessio, limit = 12) {
   const { data, error } = await supabase
