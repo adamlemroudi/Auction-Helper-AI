@@ -138,9 +138,22 @@ async function refrescaXat() {
 }
 
 async function enviar() {
-  const textInput = document.getElementById('text');
+  const textInput = document.getElementById('chat-input');
   const text = textInput.value.trim();
   if (!text || !sessioActivaId) return;
+
+  afegeixMissatge('usuari', text);
+
+  const chat = document.getElementById('chat');
+  const placeholder = document.createElement('div');
+  placeholder.className = 'assistent';
+  placeholder.dataset.temp = "true"; 
+  placeholder.innerHTML = "<em>Pensant...</em>";
+  chat.appendChild(placeholder);
+  chat.scrollTop = chat.scrollHeight;
+
+  textInput.value = '';
+  textInput.style.height = 'auto';
 
   try {
     const resposta = await fetch('http://localhost:3007/ask', {
@@ -155,20 +168,28 @@ async function enviar() {
 
     const data = await resposta.json();
 
-    if (!data.ok) {
-      console.error("Error del servidor:", data.error);
-      return;
-    }
+   if (!data || !data.reply) {
+  console.error("Error del servidor:", data);
+  placeholder.innerHTML = "<em>Error del servidor.</em>";
+  return;
+}
 
-    textInput.value = '';
-    await refrescaXat();
+placeholder.remove(); 
+afegeixMissatge('assistent', data.reply || '(Sense resposta)');
   } catch (err) {
     console.error('Error enviant missatge al servidor:', err);
-    alert('No s’ha pogut enviar el missatge.');
+    placeholder.innerHTML = "<em>Error de connexió.</em>";
   }
 }
+
 
 window.addEventListener('load', () => {
   const splash = document.getElementById('splash');
   setTimeout(() => splash.classList.add('hide'), 1200);
+});
+const chatInput = document.getElementById('chat-input');
+
+chatInput.addEventListener('input', () => {
+  chatInput.style.height = 'auto';                 
+  chatInput.style.height = chatInput.scrollHeight + 'px'; 
 });
