@@ -156,7 +156,8 @@ El teu comportament ha de seguir aquest ordre:
    - Quants **licitadors** hi participen i quina és la seva valoració aproximada del bé?
 3. Un cop tinguis tota la informació necessària, fes l’anàlisi estratègica.
 
-A més a més, tens accés a les següents notes de referència que provenen del meu treball de recerca (apartat 5 de teoria de subhastes). Utilitza-les sempre que sigui rellevant per donar la resposta:
+A més a més, tens accés a les següents notes de referència que provenen del meu treball de recerca (apartat 5 de teoria de subhastes). 
+Utilitza-les sempre que sigui rellevant per donar la resposta:
 
 ${tdrContext}
         `
