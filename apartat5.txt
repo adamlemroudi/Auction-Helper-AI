@@ -1,0 +1,125 @@
+5. Teoria de subhastes
+Fins ara, hem presentat els fonaments de la teoria de jocs: els elements que defineixen un joc, les seves formes de representació, la classificació de jocs que podem trobar i les principals eines d’anàlisi estratègica. En aquest cinquè apartat ens endinsarem en la teoria de subhastes, una branca de la teoria de jocs enfocada únicament a les subhastes. L’objectiu és contextualitzar-les dins del marc de la teoria de jocs i establir les bases formals que permetran analitzar els casos. 
+5.1 Tipus de subhastes
+Per parlar dels diferents tipus de subhastes que hi ha primer cal definir el concepte de subhasta.
+Podem definir una subhasta com a una institució de mercat que compta amb un conjunt explícit de regles que determinen l'assignació de recursos i els preus basant-se en les licitacions presentades pels participants. Explicat d'una altra manera equivalent, seria un mecanisme d'assignació de béns mitjançant el qual el venedor ofereix l'oportunitat al puixador d'aconseguir recursos a un preu que el venedor estipuli convenient.
+
+Els principals tipus de subhastes ofereixen escenaris diferenciats pel que fa a la informació disponible, les regles de participació i el comportament òptim dels licitadors, i constitueixen la base de la seva anàlisi dins la teoria de jocs. Per aquest motiu, resulta essencial definir i classificar els diferents formats abans d’endinsar-nos en l’estudi detallat dels casos. Així doncs, podem distingir les subhastes segons si es tracta de subhastes d’una sola unitat o de múltiples unitats.
+
+5.1.1 Subhastes d’una unitat
+Les subhastes d'una unitat s'anomenen així perquè només és un l'objecte el que se subhasta. Poden ser subhastes de sobre obert (els compradors fan les seves licitacions públicament) o subhastes de sobre tancat (els compradors realitzen les seves licitacions de manera privada).
+Les subhastes de sobre obert més comunes són les següents:
+Subhasta ascendent o anglesa: És el tipus de subhasta més comú. La característica que la defineix és el fet que el preu va pujant cada vegada més fins que només queda un comprador, que és el que al final es queda amb el bé que s'està subhastant.
+Subhasta holandesa o subhasta descendent: En aquest cas el subhastador comença amb un preu inicial que va baixant fins que un comprador ho accepta. Aquest model de subhasta normalment s’aplica per desfer-se d'excessos d'estoc el cost dels quals de manteniment no compensa el valor que tenen.
+Passant a les subhastes de sobre tancat trobaríem les següents:
+Subhasta de primer preu: Els compradors presenten les seves ofertes en un sobre tancat tal que el bé que s'està subhastant se l'emportarà el que més preu hagi licitat. En aquest tipus de subhastes destaquen dues característiques: la primera és que els compradors desconeixen el que ha pujat la resta, i la segona és que només es pot fer una única licitació. 
+Subhasta de segon preu o Vickrey: Aquesta subhasta seria com l'anterior, però amb la diferència que el preu que es pagaria pel bé subhastat seria el segon més alt. 
+Un cop vist les principals subhastes d’una unitat, passem a les de múltiples unitats.
+
+5.1.2 Subhastes de múltiples unitats
+En aquestes subhastes es posen a la venda diversos objectes idèntics o similars en les quals els compradors poden fer múltiples ofertes per diferents quantitats. Les principals subhastes són:
+Subhasta Vickrey amb múltiples unitats: És una variant de la subhasta Vickrey. S'apliquen els mateixos principis, però en comptes de subhastar un únic bé se subhasten múltiples unitats bé.
+Subhasta ascendent modificada:  En aquest tipus de subhastes es comença fixant un preu inicial per als diferents béns que seran subhastats i cada comprador indicarà els productes que vol comprar amb el preu inicial que ofereix. Un cop realitzat aquest procés, es calcula el total de béns que es volen comprar (la demanda). Si la demanda és menor o igual que l'oferta (nombre de béns disponibles) els béns es venen a aquest preu inicial. Però en el cas que la demanda sigui més gran que l'oferta, el preu inicial puja i aquest procés es repeteix. Aquesta modalitat de subhasta continua fins que s'assoleixi l'equilibri i l'oferta iguali a la demanda.
+Subhasta descendent modificada: S’anomena també subhasta espanyola. En aquest format hi participen dos tipus d’oferents, els oferents competitius, que presenten una oferta amb un preu determinat i els oferents no competitius, que accepten el preu establert a partir de les ofertes dels licitadors competitius.
+
+Aquesta és la classificació bàsica de les subhastes principals. Com és evident, n’existeixen altres de secundàries, però no les tractarem aquí. 
+5.2 Models bàsics i estratègies d’equilibri
+Un cop vistes les diferents subhastes que treballarem, en aquest subapartat, establirem un marc formal de com podem descriure una subhasta com a joc, i analitzarem estratègies d’equilibri que adopten els jugadors segons el tipus de subhasta.
+
+5.2.1 Subhasta com a joc
+Una subhasta es pot representar com a un joc bayesià d’informació incompleta, ja presentat anteriorment. En aquest context, el conjunt de jugadors és el dels licitadors. Com hem vist en els jocs bayesians, cadascun dels jugadors té un tipus ti , que representa la seva valoració inicial del bé. 
+Es disposa d’un conjunt d’estratègies s=(s1​,…,sn​), que en el cas de la subhasta corresponen a les ofertes. Es poden presentar en funció del tipus  si (ti).
+El mecanisme de la subhasta en si ja especifica les regles de pagament, és a dir, qui guanya l’objecte i quin preu paga. El resultat final del joc es descriu mitjançant una funció de guanys ui​ , tal que el guany d’un jugador i es pot descriure com:
+Cada jugador té dos possibles guanys, 0 quan aquest no guanya la subhasta, i ti-piquan aquest sí que obté el bé. La diferència representa el benefici, ti com hem dit expressa la valoració inicial que té el jugador de l’objecte, i pi que simbolitza el preu que aquest jugador acaba pagant si guanya.
+
+D’aquesta manera, una subhasta s’acaba establint formalment com el joc:
+G=(N, {Si}i∈N,​{ui}i∈N​)  
+
+On es remarquen les tres principals característiques de tota subhasta, N com a el conjunt de jugadors, Si les ofertes que realitza el licitador i i finalment la funció de guanys establerta pel mateix mecanisme de la subhasta ui.
+
+5.2.2 Models de valoració
+Un cop definida la subhasta com a joc bayesià, i vist que per aquest motiu tota subhasta té un valor o tipus privat cal distingir de quina manera es determinen aquests valors. Aquesta classificació és fonamental, perquè les estratègies dels jugadors dependran de si els valors són independents per a cada jugador o bé estan lligats a una magnitud comuna. Per aquest motiu, abans d’endinsar-nos en les estratègies i els equilibris que poden adoptar els licitadors, introduirem el valor comú.
+A les subhastes de valor comú, a diferència de les de tipus privat, el valor de l’objecte està definit prèviament i és el mateix per a tots els jugadors, però cap participant el coneix exactament. Cada jugador només rep una informació parcial (un senyal) que li dona una idea de quin podria ser aquest valor. Això fa que cada jugador hagi d’inferir el valor real a partir de la seva pròpia informació i del comportament dels altres.
+Per entendre-ho més bé veurem un exemple.
+
+Exemple:
+Imaginem una situació amb dos licitadors que competeixen per un objecte que pot ser de qualitat alta o baixa. Tal que el seu valor comú pot no valer res (𝑣=0) o ser un bé valuós (v= v').
+Cada licitador rep un senyal privat sobre la qualitat de l’objecte, que pot ser baix (l) o alt (h).
+Aquestes dades les interpretarem de la següent manera:
+Si algú rep un senyal baix l, sap que l’objecte no té valor. La probabilitat és del 100%
+Si un jugador rep un senyal alt h, aleshores designem una probabilitat , i per tant una probabilitat de 1-p que en realitat no valgui res.
+Si ambdós jugadors reben un senyal alt h, la probabilitat que tots dos s’hagin equivocat alhora (és a dir, que tots dos rebin un senyal alt, però que el valor sigui 0) és de (1-p)2. Per tant, la probabilitat que el valor sigui realment alt, si tots dos veuen un senyal alt, és 1− (1-p)2.
+
+Un exemple real podria ser una subhasta per obtenir els drets d’emissió d’una competició de futbol. El valor real és el mateix per a tots els jugadors, en funció dels espectadors que tingui al llarg de l’any. El punt és que ningú coneix aquestes dades amb certesa abans de la subhasta. Cada cadena disposa de pistes parcials (els senyals): estudis de mercat, enquestes d’audiència, dades d’anys anteriors, etc., però en qualsevol cas no es pot saber amb seguretat quin serà el valor real dels drets.
+
+5.2.3 Subhasta de primer preu: Estratègies i equilibris
+Ja hem definit prèviament les subhastes de primer preu. En aquest apartat ens centrarem en la seva anàlisi estratègica, examinant com els jugadors decideixen les seves ofertes i quin equilibri s’hi pot assolir.
+Com hem vist abans, en una subhasta de primer preu  cada jugador i escriu una oferta bi. El guanyador és qui ha oferit la quantitat més gran, tal que el seu benefici és la diferència entre el valor assignat a l’objecte i el que paga:
+A partir d’aquí un concepte evident és que si un jugador ofereix exactament el que valora l’objecte (bi=vi) entenem que si guanya, el seu benefici seria de vi−bi​=0. Per tant, lògicament no surt a compte oferir la mateixa quantitat que la valoració que tens del bé vi.
+Doncs, a la pràctica el jugador hauria d’oferir una mica menys del seu valor real per assegurar-se que, si guanya, encara tingui benefici. Per tant, podem establir la següent estratègia d’equilibri:
+Suposem que hi ha N jugadors i que els valors vi estan distribuïts uniformement entre 0 i 1 (per simplicitat). La teoria demostra que en equilibri simètric, l’estratègia òptima és:
+
+(v)=N-1Nv
+Això vol dir que cadascun dels jugadors ofereix una fracció del seu valor real. Per exemple amb dos jugadors l’estratègia és β(v)=12​v , amb tres β(v)=23v, i així successivament. Com més jugadors, l’oferta  bi s’aproximaria més al valor inicial del bé vi. Aquest equilibri també es pot representar mitjançant un gràfic.
+
+
+Un altre factor important a tenir en compte en les subhastes de primer preu és la probabilitat de guanyar. En una subhasta de primer preu amb N  jugadors, cada participant fa una oferta segons el seu valor privat. Imaginem que un jugador té un valor vi,calculem la seva probabilitat de guanyar en funció del valor que tinguin els altres jugadors N-1.
+Matemàticament, representem aquesta idea així:
+G(v)=vN-1
+Anem a veure un exemple numèric:
+Si els valors es distribueixen uniformement entre 0 i 1, i agaféssim d’exemple v=0.8:
+Si hi ha 2 jugadors: G(0.8)=0.81=0.8=80% de probabilitat per guanyar la subhasta.
+Si hi ha 3 jugadors: G(0.8)=0.82=0.64=64%
+Si hi ha 5 jugadors: G(0.8)=0.84≈ 0.41≈ 41%
+
+Com es pot veure, com més jugadors hi ha, més competència, i per tant la probabilitat de guanyar disminueix.
+
+Ho podem representar gràficament.
+
+Ara que hem presentat a l'estratègia d'equilibri i la probabilitat de guanyar, presentarem un últim factor a tenir en compte en analitzar subhastes de primer preu: el pagament esperat.
+
+El pagament esperat és un concepte central que determina la mitjana del que un jugador acabarà pagant en una subhasta, tenint en compte tant la probabilitat de guanyar com l’import que pagaria si guanya.
+Aquesta idea es pot expressar de la manera següent:
+mI​(v)=G(v) ⋅ β(v)
+Reflecteix el punt mitjà entre la probabilitat de guanyar la subhasta G(v)  i l’oferta proposada  β(v).
+
+Aquests són les tres idees fonamentals que s’han de tenir en compte en l’anàlisi d’una subhasta de primer preu. 
+
+5.2.4 Subhasta de segon preu (Vickrey): Estratègies i equilibris
+Com hem explicat anteriorment, en una subhasta de segon preu, cada participant presenta una oferta tancada bi. El guanyador és qui ofereix més, però a diferència de la subhasta de primer preu, el preu que paga el guanyador no és la seva pròpia oferta sinó la segona oferta més alta.
+En aquest tipus de subhastes es defineix matemàticament el benefici del guanyador de la següent manera:
+Entenem que el jugador i assigna un valor vi, tal com és la mateixa subhasta el seu benefici depèn de les altres ofertes b-i :
+És a dir, el benefici serà la diferència del valor privat assignat vi i la màxima oferta entre els altres jugadors bj, sempre que l’oferta del guanyador sigui superior a les altres:bi> maxj≠i bj​.
+L’estratègia que proposa Vickrey, és sempre fer una oferta equivalent al valor que li assignes (bi=vi), en altres paraules sempre dir la veritat. Anem a veure el perquè:
+Si ofertes menys del que valores l’objecte (bi<vi), corres el risc de perdre una subhasta que t’hauria beneficiat.
+Si la teva oferta és major al valor privat (bi>vi), succeeix el contrari, potser guanyes la subhasta, però acabes pagant més del que et compensa.
+Vist això, podem concloure que si ofertes el teu valor privat (bi=vi), no hi ha manera de sortir perjudicat, si guanyes la subhasta ho fas pagant un preu equivalent al que val per a tu.
+Aquesta estratègia II és l'única dominant en les subhastes de segon preu. En teoria de jocs, definim a l’estratègia com l’únic equilibri de Nash bayesià en el joc:
+II(v)=v
+
+Podem representar gràficament les tres possibles estratègies mencionades anteriorment.
+
+Ara que hem determinat l’estratègia òptima en les subhastes Vickrey, veurem el pagament esperat. Aquest concepte, tal com hem definit en les subhastes de primer preu, relaciona la probabilitat de guanyar amb el valor mitjà dels jugadors. En el cas de la subhasta de segon preu, però, s’ha de tenir en compte el valor mitjà de la segona millor oferta. Tot i això, es calcula de la mateixa manera:
+
+mII(v)=Pr(vj ​≤ vi) · E [vj ∣ vj ​≤ vi]
+mII(v)=vN-1 · N-1N · v
+
+Definim la probabilitat de guanyar com: Pr(vj≤vi). És a dir quan els altres jugadors tenen un valor més baix que el jugador i.
+Respecte al valor mitjà de la segona millor oferta, s’ha de recordar que el jugador i paga el valor màxim dels altres vj, i que aquest valor varia segons el nombre de participants, per això la fórmula general surt:
+
+= N-1Nv
+
+Aquests són els conceptes més importants en analitzar les subhastes de segon preu.
+
+5.2.5 Teorema d’equivalència dels ingressos
+Ara que hem estudiat les estratègies en les subhastes de primer i segon preu, entendrem el teorema d’equivalència dels ingressos, que mostra com diferents tipus de subhasta poden acabar generant el mateix benefici al venedor.
+Com ja sabem, en una subhasta els diferents licitadors fan ofertes, i entre ells, el guanyador és qui ofereix més. Si suposem que en la subhasta:
+Cada jugador té la seva pròpia valoració del bé v i ofereix segons aquest.
+Els jugadors són neutrals al risc.
+Els jugadors amb valor privat v =0, tenen un pagament esperat de zero.
+El teorema d’equivalència dels ingressos explica que sota aquestes condicions en una subhasta, l’ingrés esperat del venedor és sempre el mateix, independentment del tipus de subhasta que sigui.
+L’ingrés esperat del venedor és la mitjana de les ofertes de tots els licitadors. Si establim que m(vi) és l'oferta del jugador i en funció del seu valor privat vi, expressem l’ingrés esperat com: 
+m(v1​)+m(v2​)+⋯+m(vn)n
+L’equació és sempre útil en qualsevol subhasta sempre que es compleixin les tres condicions.
+
+Amb aquest últim tema tanquem l’apartat de teoria de subhasta. Tot i que encara ens faltaria tocar alguns conceptes, hem abordat gairebé tot el que és el nucli d’aquesta branca, a partir d’aquí la resta són extensions, variables o aplicacions.
